@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartTask Pro | HR Management & Task Portal</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-theme">
+
+    <!-- LANDING PAGE SECTION (MATCHING IMAGE 1 DESIGN) -->
+    <div id="landingPage" class="landing-wrapper">
+        <!-- TOP NAVIGATION BAR -->
+        <nav class="landing-navbar">
+            <div class="landing-logo">
+                <span class="logo-mark"><i class="fa-solid fa-shapes"></i></span>
+                <span class="logo-text">Task<span class="logo-accent">Matrix</span></span>
+            </div>
+            
+
+            <div class="nav-right-actions">
+                <a href="#" class="text-link">Help</a>
+                <div class="lang-selector"><i class="fa-solid fa-globe"></i> EN <i class="fa-solid fa-chevron-down"></i></div>
+                <button class="btn btn-pill-primary" onclick="openAuthModal('login')">Sign in</button>
+            </div>
+        </nav>
+
+        <!-- HERO SECTION -->
+        <section class="hero-section">
+            <div class="hero-badge-tag"><i class="fa-solid fa-bolt"></i> Next-Gen HR & Task Management</div>
+            <h1 class="hero-title">Empower Your task Management With Real-Time Insights</h1>
+            <p class="hero-subtitle">
+                Streamline Employee Tracking, Optimize Performance Metrics, And Make Data-Driven Decisions With Our Comprehensive Dashboard.
+            </p>
+            <div class="hero-cta-group">
+                <button class="btn btn-hero" onclick="openAuthModal('register')">⚡ Join Now</button>
+               
+            </div>
+
+            <!-- FLOATING CARDS PREVIEW GRAPHIC (IMAGE 1 STYLE) -->
+            <div class="hero-graphic-container">
+                <div class="floating-card left-card shadow-sm">
+                    <div class="card-tag"><i class="fa-solid fa-clock"></i> Time To Hire</div>
+                    <h3>30 Days</h3>
+                    <span class="stat-trendup"><i class="fa-solid fa-arrow-trend-up"></i> 9%</span>
+                </div>
+
+                <div class="floating-card center-card shadow-lg">
+                    <div class="calendar-header-mock">
+                        <span class="btn-mock active"><i class="fa-solid fa-calendar"></i> Schedule</span>
+                        <span class="btn-mock">Today</span>
+                        <div class="cal-title">12 July 2026</div>
+                        <span class="events-badge">⚡ 7 Events</span>
+                    </div>
+                    <div class="meeting-slot shadow-sm">
+                        <div class="slot-time">Design Meeting <span>9:00 - 10:30 AM</span></div>
+                        <div class="avatars-group">
+                            <span class="avatar-sm p1">RK</span>
+                            <span class="avatar-sm p2">PP</span>
+                            <span class="avatar-sm p3">SK</span>
+                        </div>
+                    </div>
+                    <div class="meeting-slot slot-green shadow-sm">
+                        <div class="slot-time">Onboard New Engineers <span>11:00 - 12:30 PM</span></div>
+                        <div class="avatars-group">
+                            <span class="avatar-sm p4">TC</span>
+                            <span class="avatar-sm p5">HR</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="floating-card right-card shadow-sm">
+                    <div class="user-kudos">
+                        <div class="kudos-user">
+                            <i class="fa-solid fa-circle-user avatar-icon"></i>
+                            <div>
+                                <strong>His Outstanding Productivity</strong>
+                                <p>James Gray · Back-end Developer</p>
+                            </div>
+                        </div>
+                        <p class="kudos-body">"James, Thank You For Always Giving Your All And Having Our Backs When We Need Support."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- MAIN DASHBOARD APP (MATCHING IMAGE 2 LAYOUT) -->
+    <div id="dashboardApp" class="dashboard-app-layout hidden">
+
+        <!-- LEFT SIDEBAR NAVIGATION -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-avatar">EP</div>
+                <div>
+                    <h2>Task Portal</h2>
+                    
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <button class="nav-item active" id="navDashboard" onclick="switchSidebarTab('dashboard')">
+                    <i class="fa-solid fa-border-all"></i> Dashboard
+                </button>
+                
+                
+                <button class="nav-item" id="navTasks" onclick="switchSidebarTab('tasks')">
+                    <i class="fa-regular fa-circle-check"></i> Tasks
+                </button>
+                <button class="nav-item" id="navLeave" onclick="switchSidebarTab('leave')">
+                    <i class="fa-regular fa-calendar-days"></i> Leave & Attendance
+                </button>
+                <button class="nav-item" id="navAnnouncements" onclick="switchSidebarTab('announcements')">
+                    <i class="fa-regular fa-bullhorn"></i> Announcements
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn-logout" id="logoutBtn">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <div class="main-workspace">
+            
+            <!-- TOP BAR SEARCH & USER HEADER -->
+            <header class="top-header">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="globalSearch" placeholder="Search employees, tasks, announcements..." oninput="handleGlobalSearch(this.value)">
+                </div>
+
+                <div class="header-right">
+                    <div class="header-user-info">
+                        <span id="topBarDate">Monday, July 31, 2026</span>
+                        <div class="user-meta">
+                            <strong id="topBarName">Alex</strong>
+                            <span class="badge-role" id="topBarRole">EMPLOYEE</span>
+                        </div>
+                    </div>
+                    <div class="user-avatar-circle" id="userAvatarCircle">A</div>
+                </div>
+            </header>
+
+            <!-- WORKSPACE BODY CONTENT -->
+            <div class="workspace-body">
+                
+                <!-- GREETING HEADER -->
+                <div class="greeting-banner">
+                    <div>
+                        <h1>Welcome Back, <span id="welcomeUserName">Alex</span> 👋</h1>
+                        <p id="greetingSubText">Monday, July 31, 2026 · Here's what's happening today</p>
+                    </div>
+                </div>
+
+                <!-- OVERVIEW METRIC CARDS (IMAGE 2 TOP ROW CARDS) -->
+                <div class="metrics-row">
+                    <div class="metric-card">
+                        <div class="metric-icon green-bg"><i class="fa-solid fa-user-check"></i></div>
+                        <div class="metric-data">
+                            <span class="metric-label">ATTENDANCE TODAY</span>
+                            <h3>Present</h3>
+                            <p class="metric-subtext"><i class="fa-regular fa-clock"></i> On time · 09:02 AM</p>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-icon orange-bg"><i class="fa-solid fa-list-check"></i></div>
+                        <div class="metric-data">
+                            <span class="metric-label">PENDING TASKS</span>
+                            <h3 id="cardPendingCount">0</h3>
+                            <p class="metric-subtext orange-text" id="cardHighPriorityCount">0 high priority</p>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-icon purple-bg"><i class="fa-solid fa-calendar-minus"></i></div>
+                        <div class="metric-data">
+                            <span class="metric-label">LEAVE REQUESTS</span>
+                            <h3 id="cardLeaveCount">0</h3>
+                            <p class="metric-subtext purple-text" id="cardLeaveSubtext">Pending approval</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QUICK ACTIONS GRID (MATCHING IMAGE 2) -->
+                <div class="quick-actions-card">
+                    <div class="section-title">Quick Actions</div>
+                    <div class="actions-grid">
+                        <button class="action-btn purple-action" onclick="openModal('applyLeaveModal')">
+                            <div class="action-icon"><i class="fa-solid fa-calendar-plus"></i></div>
+                            <span>Request Leave</span>
+                        </button>
+                        
+                        <button class="action-btn yellow-action" id="btnAdminAddTask" onclick="openModal('addTaskModal')">
+                            <div class="action-icon"><i class="fa-solid fa-plus"></i></div>
+                            <span>Add Task</span>
+                        </button>
+
+                        <button class="action-btn blue-action" onclick="switchSidebarTab('directory')">
+                            <div class="action-icon"><i class="fa-solid fa-user-group"></i></div>
+                            <span>View Team</span>
+                        </button>
+
+                        <button class="action-btn green-action" onclick="switchSidebarTab('announcements')">
+                            <div class="action-icon"><i class="fa-solid fa-bullhorn"></i></div>
+                            <span>Announcements</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- MAIN TAB VIEW 1: DASHBOARD / ANNOUNCEMENTS & TASKS (IMAGE 2 BOTTOM ROW) -->
+                <div id="viewDashboard" class="view-content">
+                    <div class="dashboard-columns-grid">
+                        
+                        <!-- COMPANY ANNOUNCEMENTS (IMAGE 2 LEFT COLUMN) -->
+                        <div class="panel-card">
+                            <div class="panel-header">
+                                <div class="panel-title"><i class="fa-solid fa-bullhorn icon-purple"></i> Company Announcements</div>
+                                <a href="#" class="view-all-link" onclick="switchSidebarTab('announcements')">View all &rarr;</a>
+                            </div>
+
+                            <div class="announcement-list">
+                                <div class="announcement-item">
+                                    <div class="announcement-head">
+                                        <h4>Q1 All-Hands Meeting Scheduled</h4>
+                                        <span class="pill-tag tag-gray">General</span>
+                                    </div>
+                                    <p>We'll be hosting our Q1 all-hands on March 15th at 10 AM. All employees are expected to attend.</p>
+                                    <span class="announcement-meta"><i class="fa-regular fa-user"></i> Sarah Williams · 2026-02-28</span>
+                                </div>
+
+                                <div class="announcement-item">
+                                    <div class="announcement-head">
+                                        <h4>New Health Benefits Enrollment Open</h4>
+                                        <span class="pill-tag tag-blue">HR</span>
+                                    </div>
+                                    <p>Open enrollment for the 2026 health benefits package begins March 1st and closes March 31st.</p>
+                                    <span class="announcement-meta"><i class="fa-regular fa-user"></i> HR Team · 2026-02-25</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- UPCOMING TASKS (IMAGE 2 RIGHT COLUMN) -->
+                        <div class="panel-card">
+                            <div class="panel-header">
+                                <div class="panel-title"><i class="fa-solid fa-list-check icon-orange"></i> Upcoming Tasks</div>
+                                <a href="#" class="view-all-link" onclick="switchSidebarTab('tasks')">View all &rarr;</a>
+                            </div>
+
+                            <div class="upcoming-tasks-list" id="dashboardTasksList">
+                                <!-- Dynamic JS Tasks -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- MAIN TAB VIEW 2: LEAVE & ATTENDANCE MANAGEMENT (NEW FEATURE) -->
+                <div id="viewLeave" class="view-content hidden">
+                    <div class="panel-card">
+                        <div class="panel-header">
+                            <div>
+                                <div class="panel-title"><i class="fa-solid fa-calendar-days icon-purple"></i> Leave Requests & Approvals</div>
+                                <p class="panel-desc">Employees submit leave requests here; Administrators accept or reject requests.</p>
+                            </div>
+                            <button class="btn btn-primary-pill" onclick="openModal('applyLeaveModal')"><i class="fa-solid fa-plus"></i> New Leave Request</button>
+                        </div>
+
+                        <!-- EMPLOYEE / ADMIN LEAVE TABLE -->
+                        <div class="table-responsive">
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Employee</th>
+                                        <th>Leave Type</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Reason</th>
+                                        <th>Applied On</th>
+                                        <th>Status</th>
+                                        <th id="thAdminLeaveActions">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="leaveRequestsTableBody">
+                                    <!-- Dynamic JS Leaves -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MAIN TAB VIEW 3: TASKS MANAGEMENT -->
+                <div id="viewTasks" class="view-content hidden">
+                    <div class="panel-card">
+                        <div class="panel-header">
+                            <div class="panel-title"><i class="fa-solid fa-tasks icon-orange"></i> Tasks Overview</div>
+                            <div class="panel-actions">
+                                <button class="btn btn-outline-pill" onclick="loadAllTasks()"><i class="fa-solid fa-rotate"></i> Refresh</button>
+                                <button class="btn btn-primary-pill" id="btnTasksTabAddTask" onclick="openModal('addTaskModal')"><i class="fa-solid fa-plus"></i> Add New Task</button>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Task ID</th>
+                                        <th>Title & Details</th>
+                                        <th>Priority</th>
+                                        <th>Deadline</th>
+                                        <th>Assigned Employee</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tasksTableBody">
+                                    <!-- Dynamic JS Tasks Table -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MAIN TAB VIEW 4: TEAM DIRECTORY -->
+                <div id="viewDirectory" class="view-content hidden">
+                    <div class="panel-card">
+                        <div class="panel-header">
+                            <div class="panel-title"><i class="fa-solid fa-users icon-blue"></i> Team Directory</div>
+                            <button class="btn btn-primary-pill" id="btnAddEmpDir" onclick="openModal('addEmployeeModal')"><i class="fa-solid fa-user-plus"></i> Add Employee</button>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Department</th>
+                                        <th>Role</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="directoryTableBody">
+                                    <!-- Dynamic JS Directory -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MAIN TAB VIEW 5: MY PROFILE -->
+                <div id="viewProfile" class="view-content hidden">
+                    <div class="profile-hero-card">
+                        <div class="profile-avatar-large" id="profAvatar">A</div>
+                        <div class="profile-details-hero">
+                            <h2 id="profName">Alex</h2>
+                            <p id="profEmail">alex@tcs.com</p>
+                            <div class="profile-pills">
+                                <span class="pill-tag tag-blue" id="profDept">Software Engineering</span>
+                                <span class="pill-tag tag-purple" id="profRole">EMPLOYEE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MAIN TAB VIEW 6: ANNOUNCEMENTS -->
+                <div id="viewAnnouncements" class="view-content hidden">
+                    <div class="panel-card">
+                        <div class="panel-header">
+                            <div class="panel-title"><i class="fa-solid fa-bullhorn icon-purple"></i> All Company Announcements</div>
+                        </div>
+                        <div class="announcement-list">
+                            <div class="announcement-item">
+                                <div class="announcement-head">
+                                    <h4>Q1 All-Hands Meeting Scheduled</h4>
+                                    <span class="pill-tag tag-gray">General</span>
+                                </div>
+                                <p>We'll be hosting our Q1 all-hands on March 15th at 10 AM. All employees are expected to attend.</p>
+                                <span class="announcement-meta">Sarah Williams · 2026-02-28</span>
+                            </div>
+                            <div class="announcement-item">
+                                <div class="announcement-head">
+                                    <h4>New Health Benefits Enrollment Open</h4>
+                                    <span class="pill-tag tag-blue">HR</span>
+                                </div>
+                                <p>Open enrollment for the 2026 health benefits package begins March 1st and closes March 31st.</p>
+                                <span class="announcement-meta">HR Team · 2026-02-25</span>
+                            </div>
+                            <div class="announcement-item">
+                                <div class="announcement-head">
+                                    <h4>Office Network Maintenance - March 5th</h4>
+                                    <span class="pill-tag tag-purple">IT</span>
+                                </div>
+                                <p>Scheduled network maintenance on March 5th from 11 PM to 3 AM will cause service interruptions.</p>
+                                <span class="announcement-meta">IT Department · 2026-02-24</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: AUTHENTICATION (LOGIN / REGISTER) -->
+    <div id="authModal" class="modal-backdrop hidden">
+        <div class="auth-modal-card">
+            <div class="auth-modal-header">
+                <div class="logo-mark"><i class="fa-solid fa-shapes"></i></div>
+                <button class="modal-close-btn" onclick="closeModal('authModal')">&times;</button>
+            </div>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab-btn active" id="tabLoginBtn" onclick="switchAuthTab('login')">Sign In</button>
+                <button class="auth-tab-btn" id="tabRegBtn" onclick="switchAuthTab('register')">Register Account</button>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <form id="loginForm" class="auth-form-body">
+                <h3>Welcome Back</h3>
+                <p class="auth-sub">Enter your credentials to access your dashboard</p>
+                <div id="loginAlert" class="alert-box hidden"></div>
+
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="yashicasp422@gmail.com or rahul@tcs.com" required value="yashicasp422@gmail.com">
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter password" required value="admin123">
+                </div>
+                <button type="submit" class="btn btn-pill-primary btn-block" id="loginSubmitBtn">
+                    <span id="loginBtnText">Sign In</span>
+                    <span id="loginBtnSpinner" class="hidden"><i class="fa-solid fa-spinner fa-spin"></i> Sending OTP...</span>
+                </button>
+            </form>
+
+            <!-- REGISTER FORM -->
+            <form id="registerForm" class="auth-form-body hidden">
+                <h3>Create Account</h3>
+                <p class="auth-sub">Register employee or administrator profile</p>
+                <div id="registerAlert" class="alert-box hidden"></div>
+
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input type="text" id="regName" placeholder="e.g. Suresh Kumar" required>
+                </div>
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" id="regEmail" placeholder="suresh@tcs.com" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="regPassword" placeholder="Minimum 6 characters" required>
+                </div>
+                <div class="input-group">
+                    <label>Department</label>
+                    <input type="text" id="regDepartment" placeholder="Software Engineering, HR, QA" required>
+                </div>
+                <div class="input-group">
+                    <label>Role</label>
+                    <select id="regRole">
+                        <option value="EMPLOYEE">Employee</option>
+                        <option value="ADMIN">Administrator</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-pill-primary btn-block">Complete Registration</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: OTP VERIFICATION -->
+    <div id="otpModal" class="modal-backdrop hidden">
+        <div class="auth-modal-card otp-modal-card">
+            <div class="auth-modal-header">
+                <div class="logo-mark otp-logo-mark"><i class="fa-solid fa-shield-halved"></i></div>
+            </div>
+
+            <div class="otp-modal-body">
+                <div class="otp-icon-ring">
+                    <i class="fa-solid fa-envelope-open-text"></i>
+                </div>
+                <h3 class="otp-title">Check Your Email</h3>
+                <p class="otp-subtitle">We've sent a 6-digit verification code to<br><strong id="otpEmailDisplay">your email</strong></p>
+
+                <div id="otpAlert" class="alert-box hidden"></div>
+
+                <!-- 6 Digit OTP Input Boxes -->
+                <div class="otp-digits-row" id="otpDigitsRow">
+                    <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" id="otp0" autocomplete="off">
+                    <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" id="otp1" autocomplete="off">
+                    <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" id="otp2" autocomplete="off">
+                    <span class="otp-sep">—</span>
+                    <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" id="otp3" autocomplete="off">
+                    <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" id="otp4" autocomplete="off">
+                    <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" id="otp5" autocomplete="off">
+                </div>
+
+                <!-- Countdown Timer -->
+                <div class="otp-timer-row">
+                    <i class="fa-regular fa-clock"></i>
+                    <span>Code expires in </span>
+                    <span id="otpCountdown" class="otp-countdown">05:00</span>
+                </div>
+
+                <!-- Verify Button -->
+                <button id="otpVerifyBtn" class="btn btn-pill-primary btn-block" onclick="submitOtp()">
+                    <span id="otpVerifyBtnText"><i class="fa-solid fa-check-circle"></i> Verify & Sign In</span>
+                    <span id="otpVerifySpinner" class="hidden"><i class="fa-solid fa-spinner fa-spin"></i> Verifying...</span>
+                </button>
+
+                <!-- Resend + Back links -->
+                <div class="otp-footer-links">
+                    <span>Didn't receive it?</span>
+                    <button id="otpResendBtn" class="otp-link-btn" onclick="resendOtp()">Resend OTP</button>
+                    <span class="otp-sep-dot">·</span>
+                    <button class="otp-link-btn" onclick="backToLogin()">Back to Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: REQUEST LEAVE (EMPLOYEE FEATURE) -->
+    <div id="applyLeaveModal" class="modal-backdrop hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-calendar-plus icon-purple"></i> Submit Leave Request</h3>
+                <button class="modal-close-btn" onclick="closeModal('applyLeaveModal')">&times;</button>
+            </div>
+            <form id="applyLeaveForm" class="modal-body">
+                <div class="input-group">
+                    <label>Leave Type</label>
+                    <select id="leaveType" required>
+                        <option value="ANNUAL">Annual Leave</option>
+                        <option value="SICK">Sick Leave</option>
+                        <option value="CASUAL">Casual Leave</option>
+                        <option value="PERSONAL">Personal Leave</option>
+                    </select>
+                </div>
+                <div class="input-row">
+                    <div class="input-group half">
+                        <label>Start Date</label>
+                        <input type="date" id="leaveStartDate" required>
+                    </div>
+                    <div class="input-group half">
+                        <label>End Date</label>
+                        <input type="date" id="leaveEndDate" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Reason for Leave</label>
+                    <textarea id="leaveReason" rows="3" placeholder="Provide detailed explanation for your leave request..." required></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-pill" onclick="closeModal('applyLeaveModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary-pill">Submit Request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: ADD / EDIT TASK -->
+    <div id="addTaskModal" class="modal-backdrop hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="taskModalHeaderTitle"><i class="fa-solid fa-list-check icon-orange"></i> Create & Assign Task</h3>
+                <button class="modal-close-btn" onclick="closeModal('addTaskModal')">&times;</button>
+            </div>
+            <form id="addTaskForm" class="modal-body">
+                <input type="hidden" id="modalTaskId">
+                <div class="input-group">
+                    <label>Task Title</label>
+                    <input type="text" id="modalTaskTitle" placeholder="e.g. Redesign onboarding flow" required>
+                </div>
+                <div class="input-group">
+                    <label>Description</label>
+                    <textarea id="modalTaskDesc" rows="3" placeholder="Describe task requirements..."></textarea>
+                </div>
+                <div class="input-row">
+                    <div class="input-group half">
+                        <label>Priority</label>
+                        <select id="modalTaskPriority">
+                            <option value="LOW">LOW</option>
+                            <option value="MEDIUM" selected>MEDIUM</option>
+                            <option value="HIGH">HIGH</option>
+                        </select>
+                    </div>
+                    <div class="input-group half">
+                        <label>Deadline</label>
+                        <input type="date" id="modalTaskDeadline" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Assign To Employee</label>
+                    <select id="modalTaskAssignee" required>
+                        <option value="">-- Select Employee --</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-pill" onclick="closeModal('addTaskModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary-pill" id="btnSaveTask">Save Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: ADD EMPLOYEE -->
+    <div id="addEmployeeModal" class="modal-backdrop hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-user-plus icon-blue"></i> Add New Employee</h3>
+                <button class="modal-close-btn" onclick="closeModal('addEmployeeModal')">&times;</button>
+            </div>
+            <form id="addEmployeeForm" class="modal-body">
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input type="text" id="modalEmpName" placeholder="e.g. Ramesh V" required>
+                </div>
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" id="modalEmpEmail" placeholder="ramesh@tcs.com" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="modalEmpPassword" placeholder="Default password" required>
+                </div>
+                <div class="input-group">
+                    <label>Department</label>
+                    <input type="text" id="modalEmpDept" placeholder="Engineering, HR, Quality" required>
+                </div>
+                <div class="input-group">
+                    <label>Role</label>
+                    <select id="modalEmpRole">
+                        <option value="EMPLOYEE">EMPLOYEE</option>
+                        <option value="ADMIN">ADMIN</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-pill" onclick="closeModal('addEmployeeModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary-pill">Save Employee</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
