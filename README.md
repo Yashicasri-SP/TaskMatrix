@@ -100,5 +100,4 @@ TaskMatrix/
 
 ---
 
-## 📝 License
-This project is created for technical portfolio and interview presentation purposes.
+
